@@ -1,8 +1,13 @@
 import Head from "next/head";
 import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
+import Spinner from "../components/spinner/Spinner";
 
 const HomePage = ({ meetups }) => {
+  if (!meetups) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <Head>
@@ -19,6 +24,7 @@ export const getStaticProps = async () => {
     const db = client.db();
     const meetupsCollections = db.collection("meetups");
     const results = await meetupsCollections.find().toArray();
+    client.close();
 
     return {
       props: {

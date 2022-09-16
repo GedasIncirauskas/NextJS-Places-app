@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { MongoClient, ObjectId } from "mongodb";
 import MeetupsDetails from "../../components/meetups/MeetupDetails";
+import ConnectDataBase from "../../utils/connectDataBase";
 
 const MeetupsDetail = ({ meetups }) => {
   const { image, title, address, description } = meetups;
@@ -22,11 +23,10 @@ const MeetupsDetail = ({ meetups }) => {
 
 export const getStaticPaths = async () => {
   try {
-    const client = await MongoClient.connect(process.env.REACT_APP_DATABASE);
-    const db = client.db();
-    const meetupsCollections = db.collection("meetups");
-    const results = await meetupsCollections.find({}, { _id: 1 }).toArray();
+    const { collection, client } = await ConnectDataBase("meetups");
+    const results = await collection.find({}, { _id: 1 }).toArray();
     client.close();
+
     return {
       fallback: "blocking",
       paths: results.map(({ _id }) => ({

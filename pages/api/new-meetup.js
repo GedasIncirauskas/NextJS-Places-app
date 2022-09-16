@@ -1,14 +1,11 @@
-import { MongoClient } from "mongodb";
+import ConnectDataBase from "../../utils/connectDataBase";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
       const data = req.body;
-      const client = await MongoClient.connect(process.env.REACT_APP_DATABASE);
-      const db = client.db();
-      const meetupsCollections = db.collection("meetups");
-      const result = await meetupsCollections.insertOne(data);
-      console.log(result);
+      const { collection, client } = await ConnectDataBase("meetups");
+      await collection.insertOne(data);
       client.close();
 
       res.status(201).json({ message: "Meetup inserted" });

@@ -1,5 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Open+Sans:wght@400;700&display=swap");
 
+:root {
+  --color-header: #7e42ffc0;
+  --color-text: #2c292b;
+  --color-button: #453071;
+  --color-button-hover: #6ca1fd;
+  --color-button-disable: #cccccc;
+  --color-nav-link: #ffffff;
+  --color-nav-active-link: #fd7b7b;
+  --color-border: #999999;
+  --color-shadow: rgba(0, 0, 0, 0.2);
+  --color-white: rgb(255, 255, 255);
+}
+
 * {
   box-sizing: border-box;
 }

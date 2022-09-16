@@ -1,20 +1,18 @@
 import Link from "next/link";
+import { NAVIGATION } from "../../config/navigation.config";
 import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
   return (
     <header className={classes.header}>
-      <div className={classes.logo}>
-        <Link href="/">React Meetups</Link>
-      </div>
+      <Link href="/">React Places</Link>
       <nav>
         <ul>
-          <li>
-            <Link href="/">All Meetups</Link>
-          </li>
-          <li>
-            <Link href="/new-meetup">Add New Meetup</Link>
-          </li>
+          {NAVIGATION.map(({ title, path }, index) => (
+            <li key={title + index}>
+              <Link href={path}>{title}</Link>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>
